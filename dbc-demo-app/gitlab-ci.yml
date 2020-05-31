@@ -1,0 +1,38 @@
+stages:
+    - install-deps
+    - build-packages
+    - run-unit-tests
+
+cache: &global_cache
+    paths:
+        - node_modules/
+    policy: pull-push
+
+
+install-deps:
+    stage: install-deps
+    tags:
+        - dev-runner
+    script:
+        - npm ci
+    only:
+        - 7.0.0
+
+
+build-packages:
+    stage: build-packages
+    tags:
+        - dev-runner
+    script:
+        - npm run build
+    only:
+        - 7.0.0
+
+run-unit-tests:
+    stage: run-unit-tests
+    tags:
+        - dev-runner
+    script:
+        - npm run test
+    only:
+        - 7.0.0
